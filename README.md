@@ -34,6 +34,5 @@ Until you do this, the forms show the thank-you message but send nothing.
 
 ## Still to update
 
-- Opening times on the home page: search for `[OPENING TIMES]` in `index.html`.
 - Facebook, Instagram and Checkatrade links currently go to each site's home page. Search for `facebook.com`, `instagram.com` and `checkatrade.com` and paste in your own profile links.
 - The Privacy policy and Terms & conditions links (`#privacy`, `#terms`) need their own pages.
