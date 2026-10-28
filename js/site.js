@@ -76,6 +76,26 @@
     setPlaying(!reduce);
   }
 
+  /* ---------- Intro video (loads YouTube only when played) ---------- */
+  $$('[data-yt]').forEach(function (card) {
+    card.addEventListener('click', function (e) {
+      if (card.classList.contains('playing')) { return; }
+      e.preventDefault();
+      var id = card.getAttribute('data-yt');
+      var frame = document.createElement('iframe');
+      frame.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1';
+      frame.title = 'TJ Interiors introductory video';
+      frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      frame.allowFullscreen = true;
+      card.classList.add('playing');
+      card.removeAttribute('href');
+      card.setAttribute('role', 'region');
+      card.setAttribute('aria-label', 'TJ Interiors introductory video');
+      Array.prototype.forEach.call(card.children, function (c) { c.style.display = 'none'; });
+      card.appendChild(frame);
+    });
+  });
+
   /* ---------- Multi-select chips ---------- */
   $$('[data-toggle]').forEach(function (chip) {
     chip.addEventListener('click', function () {
