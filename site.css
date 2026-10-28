@@ -166,6 +166,9 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid #54
 }
 
 /* Responsive */
+@media (max-width: 1480px){
+.sh-phone{display:none}
+}
 @media (max-width: 1080px){
 .sh-nav,.sh-cta{display:none}
 .sh-menu{display:inline-flex}

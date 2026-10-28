@@ -8,7 +8,10 @@
 <meta property="og:title" content="TJ Interiors Ltd | Curtains, blinds, shutters &amp; flooring in Chichester">
 <meta property="og:description" content="Family-run interiors in Chichester for 25+ years: bespoke curtains, blinds, shutters, flooring and wallpaper, made to measure and fitted by our own team.">
 <meta name="theme-color" content="#545454">
-<link rel="icon" href="images/favicon.png">
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<meta property="og:image" content="images/og-image.jpg">
+<meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Jost:wght@300;400;500&amp;family=Great+Vibes&amp;display=swap">
@@ -79,6 +82,18 @@ a:focus-visible,button:focus-visible{outline:2px solid #545454;outline-offset:3p
 .tile:hover .tile-go{background:#FFFFFF;color:#2E2B28;transform:rotate(-45deg)}
 .tile-cap > div{transition:color .35s ease,text-shadow .35s ease}
 .tile:hover .tile-cap > div{color:#545454;text-shadow:0 0 6px rgba(243,239,234,1),0 0 14px rgba(243,239,234,1),0 0 28px rgba(243,239,234,.9),0 0 48px rgba(243,239,234,.7)}
+.video-card{position:relative;display:block;aspect-ratio:4 / 5;border-radius:22px;overflow:hidden;background:#2E2B28;color:#FFFFFF;transition:aspect-ratio .4s ease}
+.video-card:hover{color:#FFFFFF}
+.video-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.1s cubic-bezier(.2,.7,.2,1)}
+.video-card:hover img{transform:scale(1.04)}
+.vc-scrim{position:absolute;inset:0;background:linear-gradient(0deg,rgba(28,26,24,.78) 0%,rgba(28,26,24,.25) 55%,rgba(28,26,24,.15) 100%)}
+.vc-play{position:absolute;left:50%;top:44%;width:92px;height:92px;margin:-46px 0 0 -46px;border-radius:50%;background:rgba(255,255,255,.94);color:#2E2B28;display:flex;align-items:center;justify-content:center;padding-left:4px;box-shadow:0 18px 40px -16px rgba(0,0,0,.5);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.video-card:hover .vc-play{transform:scale(1.08)}
+.motion-on .vc-play::after{content:"";position:absolute;inset:-12px;border-radius:50%;border:1px solid rgba(255,255,255,.7);animation:vcPulse 2.6s ease-out infinite}
+@keyframes vcPulse{from{transform:scale(.85);opacity:1}to{transform:scale(1.35);opacity:0}}
+.vc-cap{position:absolute;left:28px;right:28px;bottom:26px;display:flex;flex-direction:column;gap:8px}
+.video-card.playing{aspect-ratio:16 / 9}
+.video-card iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .cats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
 .cats .tall{grid-row:span 2}
 .bento{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:220px;gap:20px}
@@ -226,7 +241,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #545454;outline-offset:3p
 <header style="position: absolute; top: 0; left: 0; right: 0; z-index: 5">
 <div class="wrap" style="display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 96px">
 <a href="#top" aria-label="TJ Interiors Ltd, home" style="color: #FFFFFF; line-height: 1">
-<span class="script" style="font-size: clamp(32px, 3vw, 42px); white-space: nowrap; color: #FFFFFF">TJ Interiors Ltd.</span>
+<span class="brand" style="display: inline-flex; align-items: center; gap: 14px"><img src="images/logo-monogram-white.png" alt="" style="height: clamp(44px, 4vw, 56px); width: auto"><img src="images/logo-wordmark-white.png" alt="TJ Interiors Ltd" style="height: clamp(15px, 1.5vw, 21px); width: auto"></span>
 </a>
 <nav class="nav-links" aria-label="Main">
 <a class="hnav" href="about.html">About</a>
@@ -307,10 +322,12 @@ a:focus-visible,button:focus-visible{outline:2px solid #545454;outline-offset:3p
 <section id="about" style="padding-top: clamp(80px, 10vw, 140px); padding-bottom: clamp(64px, 8vw, 110px)">
 <div class="wrap" style="display: flex; flex-direction: column; gap: clamp(56px, 7vw, 96px)">
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); gap: clamp(40px, 6vw, 96px); align-items: center">
-<div class="reveal" style="position: relative; padding-right: clamp(0px, 6vw, 72px); padding-bottom: 72px">
-<div class="photo" style="aspect-ratio: 4 / 5"><img src="images/curtains-and-roman-blind.jpg" alt="Floral curtains framing a matching hand-made Roman blind"></div>
-<div class="photo" style="position: absolute; right: 0; bottom: 0; width: 46%; aspect-ratio: 1 / 1; border: 8px solid #F3EFEA"><img src="images/curtain-pole-finials.jpg" alt="Curtain pole finials on display in the showroom"></div>
-</div>
+<a class="video-card reveal" href="https://youtu.be/c7XtpG80Xr0" target="_blank" rel="noopener" data-yt="c7XtpG80Xr0" aria-label="Play our short introductory video (opens YouTube)">
+<img src="images/showroom-carpets.jpg" alt="">
+<span class="vc-scrim"></span>
+<span class="vc-play" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l10.5-6.5z"></path></svg></span>
+<span class="vc-cap"><span style="font-size: 12px; letter-spacing: .18em; text-transform: uppercase; opacity: .85">Watch the film</span><span class="serif" style="font-size: clamp(26px, 2.4vw, 34px); line-height: 1.15">A short introduction to our products, services and showroom</span></span>
+</a>
 <div class="reveal" style="display: flex; flex-direction: column; gap: 26px">
 <h2 class="serif" style="margin: 0; font-size: clamp(40px, 4.8vw, 66px); line-height: 1.04; font-weight: 400">Interiors that <em style="color: #545454">reflect you,</em> made by a family that cares.</h2>
 <p style="margin: 0; font-size: 18px; font-weight: 300; color: #4A4642; max-width: 540px">For more than 25 years, Trudi and Tim have helped homes across West Sussex, Hampshire and Surrey come together, from handmade curtains and Roman blinds to shutters, flooring and wallpaper.</p>
@@ -489,7 +506,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #545454;outline-offset:3p
 <div class="wrap" style="display: flex; flex-direction: column; gap: 56px">
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 40px">
 <div style="display: flex; flex-direction: column; gap: 14px">
-<span class="script" style="font-size: 46px; line-height: 1; color: #545454">TJ Interiors Ltd.</span>
+<span class="brand" style="display: inline-flex; flex-direction: column; align-items: flex-start; gap: 14px"><img src="images/logo-monogram-grey.png" alt="" style="height: 72px; width: auto"><img src="images/logo-wordmark-grey.png" alt="TJ Interiors Ltd" style="height: 19px; width: auto; max-width: 100%"></span>
 <p style="margin: 0; font-size: 15px; font-weight: 300; color: #4A4642; max-width: 280px">Bespoke curtains, blinds, shutters, flooring and wallpaper for Sussex, Hampshire and Surrey homes for more than 25 years.</p>
 </div>
 <div style="display: flex; flex-direction: column; gap: 10px">
