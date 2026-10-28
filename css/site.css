@@ -18,8 +18,12 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid #54
 .stack{display:flex;flex-direction:column}
 
 /* Type */
-.eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#545454}
+.eyebrow{display:none;align-items:center;gap:12px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#545454}
 .eyebrow::before{content:"";width:28px;height:1px;background:currentColor}
+.labels-line .eyebrow,.labels-numbered .eyebrow{display:inline-flex}
+.labels-numbered{counter-reset:sec}
+.labels-numbered .eyebrow{gap:12px;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:21px;line-height:1;letter-spacing:0;text-transform:none}
+.labels-numbered .eyebrow::before{counter-increment:sec;content:counter(sec,decimal-leading-zero);width:auto;height:auto;background:none;font-family:'Jost',sans-serif;font-style:normal;font-size:11px;letter-spacing:.16em;opacity:.65}
 .h1{margin:0;font-family:'Cormorant Garamond',Georgia,serif;font-weight:400;font-size:clamp(46px,6vw,88px);line-height:1;letter-spacing:-0.01em}
 .h2{margin:0;font-family:'Cormorant Garamond',Georgia,serif;font-weight:400;font-size:clamp(38px,4.6vw,62px);line-height:1.05}
 .h3{margin:0;font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:clamp(26px,2.4vw,32px);line-height:1.15}
@@ -162,6 +166,9 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid #54
 }
 
 /* Responsive */
+@media (max-width: 1480px){
+.sh-phone{display:none}
+}
 @media (max-width: 1080px){
 .sh-nav,.sh-cta{display:none}
 .sh-menu{display:inline-flex}
