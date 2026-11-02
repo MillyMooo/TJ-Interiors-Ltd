@@ -63,16 +63,16 @@
 <div class="stack" style="gap: 28px">
 <nav class="label" aria-label="Breadcrumb" style="display: flex; gap: 10px"><a href="index.html" style="color: #545454">Home</a><span aria-hidden="true">/</span><span>Contact</span></nav>
 <h1 class="h1">Let’s talk about <em>your home</em></h1>
-<p class="lead" style="max-width: 520px">Book an appointment at our showroom, or ask us to visit you. We’ll advise on colour and design in the comfort of your own home.</p>
+<p class="lead" style="max-width: 520px">Book a showroom appointment with Trudi or Tim. Browse our samples in person and get expert advice on colour, fabrics and flooring.</p>
 
 <div class="grid2" style="gap: 14px">
 <a class="card" href="tel:+447956712408" style="padding: 22px 22px; gap: 6px; color: #2E2B28">
-<span class="label">Curtains &amp; blinds</span>
+<span class="label">Curtains, blinds &amp; wallpaper</span>
 <span class="serif" style="font-size: 28px; line-height: 1.1">Ask for Trudi</span>
 <span style="font-size: 15px; color: #545454; text-decoration: underline; text-underline-offset: 3px">07956 712408</span>
 </a>
 <a class="card" href="tel:+447507904519" style="padding: 22px 22px; gap: 6px; color: #2E2B28">
-<span class="label">Flooring &amp; shutters</span>
+<span class="label">Shutters &amp; flooring</span>
 <span class="serif" style="font-size: 28px; line-height: 1.1">Ask for Tim</span>
 <span style="font-size: 15px; color: #545454; text-decoration: underline; text-underline-offset: 3px">07507 904519</span>
 </a>
@@ -91,45 +91,51 @@
 <div class="stack" style="gap: 16px; align-items: flex-start; padding: 32px 0">
 <span style="display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 56px; border-radius: 50%; background: #545454; color: #FFFFFF"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg></span>
 <h2 class="h3" style="font-size: 38px">Thank you.</h2>
-<p class="body" style="font-size: 17px">We look forward to seeing you soon. Trudi or Tim will be in touch to confirm your appointment.</p>
+<p class="body" style="font-size: 17px">We look forward to seeing you soon. Trudi or Tim will be in touch to confirm your showroom appointment.</p>
+<p class="body" data-summary style="font-size: 16px; font-weight: 400; color: #2E2B28"></p>
 <button class="pill pill-line pill-plain" type="button" data-action="reset">Send another request</button>
 </div>
 </span>
 <span class="dcif" data-if="notSent">
 <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" data-form class="stack" style="gap: 20px">
-<div class="stack" style="gap: 6px"><h2 class="h3" style="font-size: 36px">Book an appointment</h2><p class="small muted" style="margin: 0">We’ll reply to confirm a date and time.</p></div>
+<div class="stack" style="gap: 6px"><h2 class="h3" style="font-size: 36px">Book a showroom appointment</h2><p class="small muted" style="margin: 0">All appointments take place at our showroom in Merston, Chichester. Choose a time that suits you and we’ll confirm your booking.</p></div>
 <fieldset style="border: 0; margin: 0; padding: 0">
-<legend class="label" style="padding: 0; margin-bottom: 12px; color: #4A4642">Where would you like to meet?</legend>
-<div style="display: flex; flex-wrap: wrap; gap: 10px">
-<button type="button" class="chip on" aria-pressed="true" data-loc="Showroom">Our Chichester showroom</button>
-<button type="button" class="chip" aria-pressed="false" data-loc="Home visit">At my home</button>
+<legend style="padding: 0; margin-bottom: 12px; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: #4A4642">Who would you like to see?</legend>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 10px">
+<button type="button" class="person-pick" aria-pressed="false" data-person="Trudi"><span class="pp-name">Trudi</span><span class="pp-role">Curtains, blinds &amp; wallpaper</span></button>
+<button type="button" class="person-pick" aria-pressed="false" data-person="Tim"><span class="pp-name">Tim</span><span class="pp-role">Shutters &amp; all flooring</span></button>
 </div>
 </fieldset>
 <fieldset style="border: 0; margin: 0; padding: 0">
-<legend class="label" style="padding: 0; margin-bottom: 12px; color: #4A4642">I’m interested in</legend>
+<legend style="padding: 0; margin-bottom: 12px; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: #4A4642">What would you like to discuss?</legend>
+<span class="dcif" data-if="noPerson"><p style="margin: 0; font-size: 14px; color: #5E5852">Choose Trudi or Tim above to see their specialities.</p></span>
+<span class="dcif" data-if="hasPerson" hidden>
 <div style="display: flex; flex-wrap: wrap; gap: 10px">
-<button type="button" class="chip" aria-pressed="false" data-toggle="Curtains">Curtains</button>
-<button type="button" class="chip" aria-pressed="false" data-toggle="Blinds">Blinds</button>
-<button type="button" class="chip" aria-pressed="false" data-toggle="Shutters">Shutters</button>
-<button type="button" class="chip" aria-pressed="false" data-toggle="Carpets">Carpets</button>
-<button type="button" class="chip" aria-pressed="false" data-toggle="Wood &amp; vinyl flooring">Wood &amp; vinyl flooring</button>
-<button type="button" class="chip" aria-pressed="false" data-toggle="Wallpaper">Wallpaper</button>
+<span class="dcif" data-chips="Trudi" hidden><button type="button" class="chip" aria-pressed="false" data-toggle="Curtains">Curtains</button><button type="button" class="chip" aria-pressed="false" data-toggle="Blinds">Blinds</button><button type="button" class="chip" aria-pressed="false" data-toggle="Wallpaper">Wallpaper</button></span>
+<span class="dcif" data-chips="Tim" hidden><button type="button" class="chip" aria-pressed="false" data-toggle="Shutters">Shutters</button><button type="button" class="chip" aria-pressed="false" data-toggle="Carpets">Carpets</button><button type="button" class="chip" aria-pressed="false" data-toggle="Rugs">Rugs</button><button type="button" class="chip" aria-pressed="false" data-toggle="Engineered wood">Engineered wood</button><button type="button" class="chip" aria-pressed="false" data-toggle="Laminate">Laminate</button><button type="button" class="chip" aria-pressed="false" data-toggle="Luxury vinyl tiles">Luxury vinyl tiles</button><button type="button" class="chip" aria-pressed="false" data-toggle="Sheet vinyl">Sheet vinyl</button></span>
 </div>
+</span>
+</fieldset>
+<fieldset style="border: 0; margin: 0; padding: 0; min-width: 0">
+<legend style="padding: 0; margin-bottom: 12px; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: #4A4642">Choose a day</legend>
+<div class="day-row" data-days role="group" aria-label="Available days">
+</div>
+</fieldset>
+<fieldset style="border: 0; margin: 0; padding: 0">
+<legend style="padding: 0; margin-bottom: 12px; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: #4A4642">Choose a time</legend>
+<span class="dcif" data-if="noDay"><p style="margin: 0; font-size: 14px; color: #5E5852">Choose a day to see appointment times.</p></span>
+<span class="dcif" data-if="hasDay" hidden>
+<div class="slot-grid" data-slots role="group" aria-label="Available times">
+</div>
+</span>
 </fieldset>
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 16px">
 <div class="field"><label for="c-name">Name</label><input id="c-name" name="name" type="text" autocomplete="name" required="required"></div>
 <div class="field"><label for="c-tel">Phone</label><input id="c-tel" name="tel" type="tel" autocomplete="tel"></div>
 </div>
 <div class="field"><label for="c-email">Email</label><input id="c-email" name="email" type="email" autocomplete="email" required="required"></div>
-<span class="dcif" data-if="atHome" hidden>
-<div class="field"><label for="c-addr">Your address</label><input id="c-addr" name="address" type="text" autocomplete="street-address"></div>
-</span>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 16px">
-<div class="field"><label for="c-date">Preferred date</label><input id="c-date" name="date" type="date"></div>
-<div class="field"><label for="c-time">Preferred time</label><select id="c-time" name="time"><option>Morning</option><option>Afternoon</option><option>Any time</option></select></div>
-</div>
 <div class="field"><label for="c-msg">Message</label><textarea id="c-msg" name="message" rows="4" style="resize: vertical"></textarea></div>
-<button class="pill pill-dark" type="submit" style="width: 100%; justify-content: space-between">Request appointment<span class="dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></button>
+<button class="pill pill-dark" type="submit" style="width: 100%; justify-content: space-between">Request showroom appointment<span class="dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></button>
 <p class="small muted" style="margin: 0">We’ll only use your details to reply to your enquiry. See our <a href="#privacy" style="text-decoration: underline">privacy policy</a>.</p>
 </form>
 </span>
