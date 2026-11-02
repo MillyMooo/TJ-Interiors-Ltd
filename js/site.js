@@ -105,6 +105,97 @@
     });
   });
 
+  /* ---------- Choose Trudi or Tim ---------- */
+  $$('form[data-form]').forEach(function (form) {
+    var people = $$('[data-person]', form);
+    people.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var who = btn.getAttribute('data-person');
+        people.forEach(function (b) {
+          var on = b === btn;
+          b.classList.toggle('on', on);
+          b.setAttribute('aria-pressed', String(on));
+        });
+        $$('[data-chips]', form).forEach(function (g) {
+          var visible = g.getAttribute('data-chips') === who;
+          show(g, visible);
+          if (!visible) {
+            $$('[data-toggle]', g).forEach(function (c) { c.classList.remove('on'); c.setAttribute('aria-pressed', 'false'); });
+          }
+        });
+        $$('[data-if="noPerson"]', form).forEach(function (el) { show(el, false); });
+        $$('[data-if="hasPerson"]', form).forEach(function (el) { show(el, true); });
+        var err = form.querySelector('.person-error');
+        if (err) { err.remove(); }
+      });
+    });
+  });
+
+  /* ---------- Appointment day and time ----------
+     Hourly slots within opening hours: Mon to Fri 9am to 3pm starts,
+     Sat 9:30am to 11:30am starts, closed Sunday. */
+  var WD = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  var WDL = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  var MO = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  var MOL = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  var WEEKDAY_SLOTS = ['9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm'];
+  var SAT_SLOTS = ['9:30am', '10:30am', '11:30am'];
+  var dayLabel = function (d) { return WDL[d.getDay()] + ' ' + d.getDate() + ' ' + MOL[d.getMonth()]; };
+
+  $$('form[data-form]').forEach(function (form) {
+    var dayRow = form.querySelector('[data-days]');
+    var slotGrid = form.querySelector('[data-slots]');
+    if (!dayRow || !slotGrid) { return; }
+    var days = [], dt = new Date();
+    dt.setHours(12, 0, 0, 0);
+    while (days.length < 12) {
+      dt.setDate(dt.getDate() + 1);
+      if (dt.getDay() !== 0) { days.push(new Date(dt.getTime())); }
+    }
+    form._appt = { day: null, slot: '' };
+
+    var clearErr = function () { var e = form.querySelector('.slot-error'); if (e) { e.remove(); } };
+    var pressGroup = function (group, btn) {
+      $$('button', group).forEach(function (b) {
+        var on = b === btn;
+        b.classList.toggle('on', on);
+        b.setAttribute('aria-pressed', String(on));
+      });
+    };
+    var renderSlots = function (d) {
+      slotGrid.innerHTML = '';
+      (d.getDay() === 6 ? SAT_SLOTS : WEEKDAY_SLOTS).forEach(function (s) {
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'slot'; b.textContent = s;
+        b.setAttribute('aria-pressed', 'false');
+        b.addEventListener('click', function () { form._appt.slot = s; pressGroup(slotGrid, b); clearErr(); });
+        slotGrid.appendChild(b);
+      });
+    };
+    form._resetAppt = function () {
+      form._appt = { day: null, slot: '' };
+      pressGroup(dayRow, null);
+      slotGrid.innerHTML = '';
+      $$('[data-if="hasDay"]', form).forEach(function (el) { show(el, false); });
+      $$('[data-if="noDay"]', form).forEach(function (el) { show(el, true); });
+    };
+    days.forEach(function (d) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'day-pick';
+      b.setAttribute('aria-pressed', 'false');
+      b.setAttribute('aria-label', dayLabel(d));
+      b.innerHTML = '<span class="dw">' + WD[d.getDay()] + '</span><span class="dn">' + d.getDate() + '</span><span class="dm">' + MO[d.getMonth()] + '</span>';
+      b.addEventListener('click', function () {
+        form._appt = { day: d, slot: '' };
+        pressGroup(dayRow, b);
+        renderSlots(d);
+        $$('[data-if="hasDay"]', form).forEach(function (el) { show(el, true); });
+        $$('[data-if="noDay"]', form).forEach(function (el) { show(el, false); });
+      });
+      dayRow.appendChild(b);
+    });
+  });
+
   /* ---------- Showroom / home visit choice ---------- */
   var locs = $$('[data-loc]');
   locs.forEach(function (btn) {
@@ -148,7 +239,45 @@
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
+      var who = form.querySelector('[data-person].on');
+      if (form.querySelector('[data-person]') && !who) {
+        var err = form.querySelector('.person-error');
+        if (!err) {
+          err = document.createElement('p');
+          err.className = 'person-error';
+          err.setAttribute('role', 'alert');
+          err.style.cssText = 'margin:8px 0 0;font-size:14px;color:#8A2E2E';
+          err.textContent = 'Please choose Trudi or Tim so we know who to book you in with.';
+          var first = form.querySelector('[data-person]');
+          first.parentElement.insertAdjacentElement('afterend', err);
+        }
+        form.querySelector('[data-person]').focus();
+        return;
+      }
+      var appt = form._appt;
+      if (appt && (!appt.day || !appt.slot)) {
+        var serr = form.querySelector('.slot-error');
+        if (!serr) {
+          serr = document.createElement('p');
+          serr.className = 'slot-error';
+          serr.setAttribute('role', 'alert');
+          serr.style.cssText = 'margin:8px 0 0;font-size:14px;color:#8A2E2E';
+          form.querySelector('[data-slots]').closest('fieldset').appendChild(serr);
+        }
+        serr.textContent = appt.day ? 'Please choose a time for your appointment.' : 'Please choose a day and time for your appointment.';
+        (form.querySelector('[data-slots] button') || form.querySelector('[data-days] button')).focus();
+        return;
+      }
       var data = new FormData(form);
+      if (who) { data.append('appointment_with', who.getAttribute('data-person')); }
+      var summaryText = '';
+      if (appt && appt.day) {
+        data.append('appointment_day', dayLabel(appt.day));
+        data.append('appointment_time', appt.slot);
+        summaryText = 'Your requested appointment: ' + (who ? who.getAttribute('data-person') : 'Trudi or Tim') + ', ' + dayLabel(appt.day) + ' at ' + appt.slot + '.';
+      }
+      $$('[data-summary]', box).forEach(function (el) { el.textContent = summaryText; });
+      data.append('appointment_type', 'Showroom appointment');
       var picked = $$('[data-toggle].on', form).map(function (c) { return c.getAttribute('data-toggle'); });
       if (picked.length) { data.append('interested_in', picked.join(', ')); }
       var loc = form.querySelector('[data-loc].on');
@@ -190,6 +319,10 @@
       if (form) {
         form.reset();
         $$('[data-toggle]', form).forEach(function (c) { c.classList.remove('on'); c.setAttribute('aria-pressed', 'false'); });
+        $$('[data-person]', form).forEach(function (b) { b.classList.remove('on'); b.setAttribute('aria-pressed', 'false'); });
+        $$('[data-chips], [data-if="hasPerson"]', form).forEach(function (g) { show(g, false); });
+        $$('[data-if="noPerson"]', form).forEach(function (g) { show(g, true); });
+        if (form._resetAppt) { form._resetAppt(); }
         show(form.closest('.dcif'), true);
       }
     });
